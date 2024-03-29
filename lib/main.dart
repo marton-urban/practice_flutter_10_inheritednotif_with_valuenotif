@@ -1,8 +1,4 @@
-// state_widget.dart StateInheritedWidget "of" method why needs to be dynamic???
-// it doesn't need dynamic if  we use
-// _StateWidgetState createState() instead of
-// State<StateWidget> createState()
-// but then we have lint warning.
+// with InheritedNotifier, there is no need for ListenableBuilder
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
