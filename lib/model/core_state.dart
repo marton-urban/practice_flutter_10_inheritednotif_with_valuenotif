@@ -20,6 +20,17 @@ class CoreState {
       backgroundColor: backgroundColor ?? this.backgroundColor,
     );
   }
+
+  // these are needed, so no rebuild when color and/or counter are unchanged
+  @override
+  bool operator ==(covariant CoreState other) =>
+      identical(this, other) ||
+      runtimeType == other.runtimeType &&
+          counter == other.counter &&
+          backgroundColor == other.backgroundColor;
+
+  @override
+  int get hashCode => counter.hashCode ^ backgroundColor.hashCode;
 }
 
 class CoreNotifier extends ValueNotifier<CoreState> {
@@ -36,15 +47,4 @@ class CoreNotifier extends ValueNotifier<CoreState> {
   void setCounter(int newCounter) {
     value = value.copyWith(counter: newCounter);
   }
-
-  // this is not needed in this case
-  // @override
-  // bool operator ==(covariant CoreState other) =>
-  //     identical(this, other) ||
-  //     runtimeType == other.runtimeType &&
-  //         counter == other.counter &&
-  //         backgroundColor == other.backgroundColor;
-
-  // @override
-  // int get hashCode => counter.hashCode ^ backgroundColor.hashCode;
 }
