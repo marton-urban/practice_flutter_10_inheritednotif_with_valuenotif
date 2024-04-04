@@ -21,7 +21,8 @@ class CoreState {
     );
   }
 
-  // these are needed, so no rebuild when color and/or counter are unchanged
+  // this is needed because value setter in CoreNotifier uses == to check
+  // whether notifyListeners() is needed
   @override
   bool operator ==(covariant CoreState other) =>
       identical(this, other) ||
