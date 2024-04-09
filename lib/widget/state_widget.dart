@@ -10,6 +10,11 @@ class StateInheritedNotifier extends InheritedNotifier<CoreNotifier> {
   });
 
   static CoreNotifier of(BuildContext context) {
+    // shorter version:
+    // return context
+    //     .dependOnInheritedWidgetOfExactType<StateInheritedNotifier>()!
+    //     .notifier!;
+
     final stateInheritedNotifier =
         context.dependOnInheritedWidgetOfExactType<StateInheritedNotifier>();
 
@@ -17,17 +22,20 @@ class StateInheritedNotifier extends InheritedNotifier<CoreNotifier> {
       throw Exception("No StateInheritedNotifier found in context");
     }
 
-    final notifier = stateInheritedNotifier.notifier;
+    final localNotifier = stateInheritedNotifier.notifier;
 
-    if (notifier == null) {
+    if (localNotifier == null) {
       throw Exception("No CoreNotifier found in CoreNotifier");
     }
 
-    return notifier;
+    return localNotifier;
   }
 
   // no need to override as it is already implemented in super
-  // and is NOT used in this example anyway (notifier itself is never changed)
+  // and is NOT used in this example anyway, because
+  // notifier (which is a CoreNotifier object) itself is never renewed,
+  // only its value field is changed (which is a CoreState object)
+  // so oldWidget.notifier == notifier in this example at all times
   // @override
   // bool updateShouldNotify(StateInheritedNotifier oldWidget) =>
   //     oldWidget.notifier != notifier;
