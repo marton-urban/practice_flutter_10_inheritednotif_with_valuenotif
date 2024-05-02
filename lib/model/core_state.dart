@@ -21,17 +21,17 @@ class CoreState {
     );
   }
 
-  // this is needed because value setter in CoreNotifier uses == to check
-  // whether notifyListeners() is needed
-  @override
-  bool operator ==(covariant CoreState other) =>
-      identical(this, other) ||
-      runtimeType == other.runtimeType &&
-          counter == other.counter &&
-          backgroundColor == other.backgroundColor;
+  // this is not needed, because value setter in CoreNotifier uses == to check
+  // whether notifyListeners() is needed and apparently it can see the diff
+  // @override
+  // bool operator ==(covariant CoreState other) =>
+  //     identical(this, other) ||
+  //     runtimeType == other.runtimeType &&
+  //         counter == other.counter &&
+  //         backgroundColor == other.backgroundColor;
 
-  @override
-  int get hashCode => counter.hashCode ^ backgroundColor.hashCode;
+  // @override
+  // int get hashCode => counter.hashCode ^ backgroundColor.hashCode;
 }
 
 class CoreNotifier extends ValueNotifier<CoreState> {
